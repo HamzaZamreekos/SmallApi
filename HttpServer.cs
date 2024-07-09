@@ -9,16 +9,15 @@ namespace SmallApi
 {
     public class HttpServer
     {
-        public HttpServer() 
-        {
-            
-        }
         private HttpListener _listener;
+        public HttpServer(List<string> endpoints) 
+        {
+            _listener = new HttpListener();
+            endpoints.ForEach(endpoint => _listener.Prefixes.Add(endpoint));
+        }
 
         public void Start()
         {
-            _listener = new HttpListener();
-            _listener.Prefixes.Add();
             _listener.Start();
         }
     }

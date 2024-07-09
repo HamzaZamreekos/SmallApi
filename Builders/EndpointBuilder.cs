@@ -25,7 +25,7 @@ namespace SmallApi.Builders
         }
         public EndpointBuilder WithPort(int port)
         {
-            template.Append(port);
+            template.Append(":"+port);
             return this;
         }
         public EndpointBuilder WithEndpoint(string endpoint)
@@ -36,7 +36,7 @@ namespace SmallApi.Builders
         public EndpointBuilder WithController<T>() where T : class
         {
             var localEndpoints = manager.GetEndpointsFromController<T>();
-            localEndpoints.ForEach(endpoint => endpoints.Add(template.ToString() + endpoint));
+            localEndpoints.ForEach(endpoint => endpoints.Add(template.ToString() + endpoint + "/"));
             return this;
         }
         public List<string> Build()

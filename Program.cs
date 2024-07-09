@@ -8,11 +8,12 @@ namespace SmallApi
         static void Main(string[] args)
         {
             Console.WriteLine("Hello");
-            var endpointBuilder = new EndpointBuilder();
-            endpointBuilder.WithIpAddress(IPAddress.Any);
-            endpointBuilder.WithPort(1099);
-            endpointBuilder.WithController<ExampleController>();
-            var httpServer = new HttpServer();
+            var builder = new EndpointBuilder();
+            builder.WithIpAddress(IPAddress.Any);
+            builder.WithPort(1099);
+            builder.WithController<ExampleController>();
+            var app = builder.Build();
+            var httpServer = new HttpServer(app);
         }
     }
 }
