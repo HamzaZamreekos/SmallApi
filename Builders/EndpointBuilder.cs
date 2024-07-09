@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmallApi.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,17 +13,17 @@ namespace SmallApi.Builders
         List<string> endpoints = new List<string>();
         private StringBuilder template = new("http://");
         private string defaultIp = IPAddress.Any.ToString();
-
+        private ControllerManager manager;
         public EndpointBuilder() 
         {
-            
+            manager = new();
         }
         public EndpointBuilder WithIpAddress(IPAddress address)
         {
             template.Append(address.ToString());
             return this;
         }
-        public EndpointBuilder WithPort(string port)
+        public EndpointBuilder WithPort(int port)
         {
             template.Append(port);
             return this;
@@ -30,6 +31,12 @@ namespace SmallApi.Builders
         public EndpointBuilder WithEndpoint(string endpoint)
         {
             endpoints.Add(template.ToString() + endpoint);
+            return this;
+        }
+        public EndpointBuilder WithController<T>() where T : class
+        {
+            var localEndpoints = manager.GetEndpointsFromController<T>();
+            localEndpoints.ForEach(endpoint => endpoints.Add(template.ToString() + endpoint));
             return this;
         }
         public List<string> Build()

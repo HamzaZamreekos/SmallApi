@@ -1,4 +1,5 @@
 ﻿using SmallApi.Builders;
+using System.Net;
 
 namespace SmallApi
 {
@@ -8,6 +9,10 @@ namespace SmallApi
         {
             Console.WriteLine("Hello");
             var endpointBuilder = new EndpointBuilder();
+            endpointBuilder.WithIpAddress(IPAddress.Any);
+            endpointBuilder.WithPort(1099);
+            endpointBuilder.WithController<ExampleController>();
+            var httpServer = new HttpServer();
         }
     }
 }

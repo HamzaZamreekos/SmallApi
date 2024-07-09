@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmallApi
+namespace SmallApi.Helpers
 {
-    public class ControllerManager<T> where T : class
+    public class CurrentEndpoints
     {
-
+        IDictionary<string, string> endpoints;
     }
 }
