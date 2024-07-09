@@ -12,7 +12,7 @@ namespace SmallApi.Helpers
     public class ControllerManager
     {
         List<string> endpoints = new();
-        public List<string> GetEndpointsFromController<T>() where T : class
+        public List<string> GetEndpointsFromControllerAndRegisterThem<T>() where T : class
         {
             var controllerType = typeof(T);
             var methods = controllerType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
@@ -25,6 +25,7 @@ namespace SmallApi.Helpers
                     Console.WriteLine($"Invoking method: {method.Name}, Description: {attribute.routeUrl}");
                     //method.Invoke(controllerType, null);
                     endpoints.Add(attribute.routeUrl);
+                    CurrentEndpoints.Endpoints.Add(attribute.routeUrl, method);
                 }
             }
             return endpoints;

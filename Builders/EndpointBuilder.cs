@@ -35,7 +35,7 @@ namespace SmallApi.Builders
         }
         public EndpointBuilder WithController<T>() where T : class
         {
-            var localEndpoints = manager.GetEndpointsFromController<T>();
+            var localEndpoints = manager.GetEndpointsFromControllerAndRegisterThem<T>();
             localEndpoints.ForEach(endpoint => endpoints.Add(template.ToString() + endpoint + "/"));
             return this;
         }
